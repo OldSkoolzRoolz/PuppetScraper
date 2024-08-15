@@ -1,5 +1,0 @@
-/Storage/Data/Solutions/WorkerService1/obj/Debug/net9.0/PuppetServiceWorker.csproj.AssemblyReference.cache
-/Storage/Data/Solutions/WorkerService1/obj/Debug/net9.0/PuppetServiceWorker.GeneratedMSBuildEditorConfig.editorconfig
-/Storage/Data/Solutions/WorkerService1/obj/Debug/net9.0/PuppetServiceWorker.AssemblyInfoInputs.cache
-/Storage/Data/Solutions/WorkerService1/obj/Debug/net9.0/PuppetServiceWorker.AssemblyInfo.cs
-/Storage/Data/Solutions/WorkerService1/obj/Debug/net9.0/PuppetServiceWorker.csproj.CoreCompileInputs.cache

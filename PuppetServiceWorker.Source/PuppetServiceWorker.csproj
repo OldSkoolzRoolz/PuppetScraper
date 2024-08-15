@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>dotnet-PuppetServiceWorker-1EB07152-7DDC-4F62-9C98-86CAFACD534E</UserSecretsId>
+
+    </PropertyGroup>
+
+<PropertyGroup>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+</PropertyGroup>
+
+
+
+    <ItemGroup>
+        <PackageReference Include="htmlagilitypack" Version="*" />
+        <PackageReference Include="microsoft.data.sqlite" Version="*" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="*" />
+        <PackageReference Include="PuppeteerSharp" Version="*" />
+        <PackageReference Include="PuppeteerSharp.Dom" Version="*" />
+    </ItemGroup>
+</Project>

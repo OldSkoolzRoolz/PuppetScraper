@@ -1,0 +1,10 @@
+{
+    "application.experimental.rendererProfiling": false,
+    "terminal.integrated.stickyScroll.enabled": false,
+    "terminal.integrated.tabs.enabled": false,
+    "dotnet.backgroundAnalysis.analyzerDiagnosticsScope": "openFiles",
+    "dotnet.backgroundAnalysis.compilerDiagnosticsScope": "openFiles",
+    "dotnet.defaultSolution": "PuppetServiceWorker.sln",
+    
+
+}
