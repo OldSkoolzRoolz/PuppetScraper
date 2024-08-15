@@ -1,0 +1,130 @@
+{
+  "format": 1,
+  "restore": {
+    "/Storage/Data/Solutions/PuppetServiceWorker/PuppetServiceWorker.Tests/UnitTests.csproj": {}
+  },
+  "projects": {
+    "/Storage/Data/Solutions/PuppetServiceWorker/PuppetServiceWorker.Tests/UnitTests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Storage/Data/Solutions/PuppetServiceWorker/PuppetServiceWorker.Tests/UnitTests.csproj",
+        "projectName": "UnitTests",
+        "projectPath": "/Storage/Data/Solutions/PuppetServiceWorker/PuppetServiceWorker.Tests/UnitTests.csproj",
+        "packagesPath": "/homes/failsafe/.nuget/packages/",
+        "outputPath": "/Storage/Data/Solutions/PuppetServiceWorker/PuppetServiceWorker.Tests/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Storage/NuGet.Config",
+          "/homes/failsafe/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "/Storage/Data/Nuget/local/": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.pkg.github.com/oldskoolzroolz/index.json": {},
+          "https://www.nuget.org/api/v2/": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "all"
+        }
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "MSTest": {
+              "target": "Package",
+              "version": "[*, )"
+            },
+            "MSTest.Analyzers": {
+              "target": "Package",
+              "version": "[3.5.2, )",
+              "versionOverride": "[3.5.2, )"
+            },
+            "MSTest.TestAdapter": {
+              "target": "Package",
+              "version": "[3.5.2, )",
+              "versionOverride": "[3.5.2, )"
+            },
+            "MSTest.TestFramework": {
+              "target": "Package",
+              "version": "[3.5.2, )",
+              "versionOverride": "[3.5.2, )"
+            },
+            "Microsoft.Extensions.Hosting": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[17.10.0, )",
+              "versionOverride": "[17.10.0, )"
+            },
+            "Microsoft.Testing.Extensions.CodeCoverage": {
+              "target": "Package",
+              "version": "[17.11.5, )",
+              "versionOverride": "[17.11.5, )"
+            },
+            "Microsoft.Testing.Extensions.CrashDump": {
+              "target": "Package",
+              "version": "[1.3.2, )",
+              "versionOverride": "[1.3.2, )"
+            },
+            "Microsoft.Testing.Extensions.HangDump": {
+              "target": "Package",
+              "version": "[1.3.2, )",
+              "versionOverride": "[1.3.2, )"
+            },
+            "Microsoft.Testing.Extensions.HotReload": {
+              "target": "Package",
+              "version": "[1.3.2, )",
+              "versionOverride": "[1.3.2, )"
+            },
+            "Microsoft.Testing.Extensions.Retry": {
+              "target": "Package",
+              "version": "[1.3.2, )",
+              "versionOverride": "[1.3.2, )"
+            },
+            "Microsoft.Testing.Extensions.TrxReport": {
+              "target": "Package",
+              "version": "[1.3.2, )",
+              "versionOverride": "[1.3.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/Storage/dotnet/sdk/9.0.100-preview.6.24328.19/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
