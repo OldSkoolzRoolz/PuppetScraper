@@ -13,7 +13,7 @@ public class PuppetBrowserBase : IDisposable, IAsyncDisposable
     public PuppetBrowserBase()
     {
 
-        Browser = Puppeteer.LaunchAsync( DefaultOptions, PuppetSettings.LoggerFactory).GetAwaiter().GetResult();
+        Browser = Puppeteer.LaunchAsync( DefaultOptions).GetAwaiter().GetResult();
 
     }
 

@@ -12,12 +12,11 @@ namespace PuppetServiceWorker.Modules;
 
 public class Downloader
 {
-    private readonly IHostApplicationLifetime _appLifetime;
 
-    private readonly CancellationToken _token;
-    private readonly string _downloadPath;
-    private readonly int _concurrentTasks;
-    private readonly ConcurrentDictionary<string, string> _targetList = new ConcurrentDictionary<string, string>();
+    public readonly CancellationToken _token;
+    public readonly string _downloadPath;
+    public readonly int _concurrentTasks;
+    public readonly ConcurrentDictionary<string, string> _targetList = new ConcurrentDictionary<string, string>();
 
     readonly HttpClient _client = new HttpClient()
     {
@@ -50,9 +49,9 @@ public class Downloader
     /// <param name="downloadPath">
     /// The directory where the downloaded files will be saved.
     /// </param>
-    public Downloader(IHostApplicationLifetime hostApplicationLifetime,string downloadPath = "/Extra/Files", int concurrentTasks = 5, CancellationToken stoppingToken = default)
+    public Downloader(string downloadPath = "/Extra/Files", int concurrentTasks = 5, CancellationToken stoppingToken = default)
     {
-        _appLifetime = hostApplicationLifetime;
+       
         // Stores the cancellation token to stop the download tasks gracefully.
         _token = stoppingToken;
 
@@ -65,13 +64,13 @@ public class Downloader
         
 
         // Loads a number of unseen posts from the "Tracker" table into a ConcurrentDictionary.
-        _targetList = TrackingDb.LoadUnSeenPostsAsync(200).Result;
+        _targetList = TrackingDb.LoadUnSeenPostsAsync(50).Result;
     }
 
     private void OnDownloadTaskCompleted(object? sender, EventArgs e)
     {
         System.Console.WriteLine("Download Task Completed");
-        _appLifetime.StopApplication();
+      
     }
 
 
@@ -124,41 +123,68 @@ public class Downloader
 
 
 
-    /// <summary>
-    /// Activates the downloader by starting multiple download tasks concurrently.
-    /// </summary>
-    /// <returns>A task that represents the asynchronous activation of the downloader.</returns>
-    public async Task ActivateDownloader()
+
+
+
+
+
+
+
+
+
+    public async Task StartDownloadsAsync(CancellationToken stoppingToken)
     {
+        // Check if the number of concurrent tasks is valid
         if (_concurrentTasks <= 0)
         {
             throw new ArgumentOutOfRangeException(nameof(_concurrentTasks), "Number of concurrent tasks must be greater than 0.");
         }
 
-        var tasks = new Task[_concurrentTasks];
+        // Create a linked list to store the tasks
+        var tasks = new LinkedList<Task>();
+
+        // Iterate over the number of concurrent tasks
         for (int i = 0; i < _concurrentTasks; i++)
         {
-            tasks[i] = StartDownloadingAsync(_token);
+            // Create a new task and add it to the linked list
+            var task = StartDownloadingAsync(stoppingToken);
+            tasks.AddLast(task);
         }
 
         try
         {
-            await Task.WhenAll(tasks);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error occurred during download tasks: {ex.Message}");
-            throw;
+            // Keep running until all tasks are completed
+            while (tasks.Count > 0)
+            {
+                // Await the completion of the first task in the linked list
+                var completedTask = await Task.WhenAny(tasks);
+
+                // Remove the completed task from the linked list
+                tasks.Remove(completedTask);
+
+                // If the task threw an exception, print an error message to the console
+                if (completedTask.Exception != null)
+                {
+                    foreach (var ex in completedTask.Exception.InnerExceptions)
+                    {
+                        Console.WriteLine($"Error occurred during download task: {ex.Message}");
+                    }
+                }
+
+                // If there are still tasks to be completed, create a new concurrent task and add it to the linked list
+                if (tasks.Count < _concurrentTasks)
+                {
+                    var newTask = StartDownloadingAsync(stoppingToken);
+                    tasks.AddLast(newTask);
+                }
+            }
         }
         finally
         {
+            // Raise the DownloadTaskCompleted event to notify subscribers that all download tasks have completed
             DownloadTaskCompleted?.Invoke(this, EventArgs.Empty);
         }
     }
-
-
-
-
 
 
 
@@ -176,22 +202,39 @@ public class Downloader
         if (stoppingToken.IsCancellationRequested)
             return;
 
+        Stream? stream = null;
+        FileStream? fileStream = null;
+
         try
         {
             using var response = await _client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead, stoppingToken);
 
             if (response.IsSuccessStatusCode)
             {
-                using var stream = await response.Content.ReadAsStreamAsync(stoppingToken);
+                stream = await response.Content.ReadAsStreamAsync(stoppingToken);
+
+                if (stream == null)
+                {
+                    throw new InvalidOperationException($"Failed to read stream from {url}");
+                }
+
                 var path = Path.Combine(_downloadPath, Path.GetFileName(url));
 
-                using (var fileStream = new FileStream(path, FileMode.Create, FileAccess.Write,FileShare.None,8192,true))
+                fileStream = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None, 8192, true);
+
+                if (fileStream == null)
                 {
-                    await stream.CopyToAsync(fileStream, 8192, stoppingToken);
+                    throw new InvalidOperationException($"Failed to open file stream for {path}");
                 }
+
+                await stream.CopyToAsync(fileStream, 8192, stoppingToken);
 
                 args.BytesTransferred = new FileInfo(path).Length;
                 args.BytesExpected = response.Content.Headers.ContentLength;
+            }
+            else
+            {
+                args.Exception = new FatalDownloadThreadException(response.ReasonPhrase);
             }
         }
         catch (TaskCanceledException tce)
@@ -204,9 +247,21 @@ public class Downloader
         }
         finally
         {
+            stream?.Dispose();
+            fileStream?.Dispose();
             RaiseDownloadComplete(args);
         }
     }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -220,19 +275,14 @@ public class Downloader
     /// <returns></returns>
     public async Task StartDownloadingAsync(CancellationToken stoppingToken)
     {
-        do
+        while(!_targetList.IsEmpty)
         {
-            if (_targetList.IsEmpty)
-            {
-                Console.WriteLine("Download List Empty. Exiting.");
-                return;
-            } // works around bug in ConcurrentDictionary
+        
 
             var target = _targetList.First();
             _targetList.TryRemove(target.Key, out _);
             try
             {
-
                 await DownloadFile(target.Key, target.Value, stoppingToken);
             }
             catch (Exception)
@@ -244,9 +294,7 @@ public class Downloader
             }
 
         }
-        while (!stoppingToken.IsCancellationRequested || !_targetList.IsEmpty);
-        // Possible bug in ConcurrentDictionary
-        // while does not exit if targetList is empty.        
+        
         Debug.WriteLine("Download Thread Complete");
 
     }

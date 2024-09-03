@@ -5,10 +5,10 @@
   },
   "projects": {
     "/Storage/Data/Solutions/PuppetServiceWorker/PuppetServiceWorker.Source/PuppetServiceWorker.csproj": {
-      "version": "1.0.0",
+      "version": "1.0.0-Alpha",
       "restore": {
         "projectUniqueName": "/Storage/Data/Solutions/PuppetServiceWorker/PuppetServiceWorker.Source/PuppetServiceWorker.csproj",
-        "projectName": "PuppetServiceWorker",
+        "projectName": "KC.DropIns.PuppetServiceWorker",
         "projectPath": "/Storage/Data/Solutions/PuppetServiceWorker/PuppetServiceWorker.Source/PuppetServiceWorker.csproj",
         "packagesPath": "/homes/failsafe/.nuget/packages/",
         "outputPath": "/Storage/Data/Solutions/PuppetServiceWorker/PuppetServiceWorker.Source/obj/",
@@ -18,7 +18,7 @@
           "/homes/failsafe/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "net9.0"
+          "net8.0"
         ],
         "sources": {
           "/Storage/Data/Nuget/local/": {},
@@ -27,8 +27,8 @@
           "https://www.nuget.org/api/v2/": {}
         },
         "frameworks": {
-          "net9.0": {
-            "targetAlias": "net9.0",
+          "net8.0": {
+            "targetAlias": "net8.0",
             "projectReferences": {}
           }
         },
@@ -36,30 +36,23 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "all"
         }
       },
       "frameworks": {
-        "net9.0": {
-          "targetAlias": "net9.0",
+        "net8.0": {
+          "targetAlias": "net8.0",
           "dependencies": {
-            "Microsoft.Extensions.Hosting": {
+            "Microsoft.SourceLink.GitHub": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
-              "version": "[*, )"
+              "version": "[8.0.0, )"
             },
             "PuppeteerSharp": {
               "target": "Package",
               "version": "[*, )"
             },
             "PuppeteerSharp.Dom": {
-              "target": "Package",
-              "version": "[*, )"
-            },
-            "htmlagilitypack": {
               "target": "Package",
               "version": "[*, )"
             },
@@ -84,7 +77,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/Storage/dotnet/sdk/9.0.100-preview.6.24328.19/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/Storage/dotnet/sdk/8.0.303/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

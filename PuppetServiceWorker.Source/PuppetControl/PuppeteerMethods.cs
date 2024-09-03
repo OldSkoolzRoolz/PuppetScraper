@@ -346,7 +346,7 @@ public class PuppeteerMethods : IDisposable
         try
         {
             var urls = postData.Select(e => e.PostSourceUrl).ToList();
-            Worker.AppendToVideoLinks(urls);
+            //AppendToVideoLinks(urls);
         }
         catch (Exception)
         {

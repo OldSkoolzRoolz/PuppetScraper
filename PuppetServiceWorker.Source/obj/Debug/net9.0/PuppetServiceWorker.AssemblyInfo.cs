@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PuppetServiceWorker")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8f271b709dc31ab1a242ab6294441c1e45b5f63e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7e44cca54dafed8248c9f61d253b77974bb649fa")]
 [assembly: System.Reflection.AssemblyProductAttribute("PuppetServiceWorker")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PuppetServiceWorker")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

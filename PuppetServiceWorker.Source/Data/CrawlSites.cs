@@ -8,16 +8,29 @@ public class CrawlSites
     public List<string> GetData()
     {
 
-        var data= new List<string>();
-        
-        data.Add("https://bdsm.bdsmlr.com");
-          data.Add("https://tamponlove.bdsmlr.com/");
-        data.Add("https://scaryladies.bdsmlr.com/");
-       data.Add("https://fuckslut-lucy.bdsmlr.com/");
-       data.Add("https://openw.bdsmlr.com/");
-       data.Add("https://hugeholeslover.bdsmlr.com/");
-       data.Add("https://usethemhard94.bdsmlr.com/");
-       data.Add("https://deepestinsertions.bdsmlr.com/");
+        var data= new List<string>
+        {
+            //"https://bdsm.bdsmlr.com",
+            //"https://tamponlove.bdsmlr.com/",
+            "https://openw.bdsmlr.com/",
+            "https://hugeholeslover.bdsmlr.com/",
+            "https://usethemhard94.bdsmlr.com/",
+            //"https://scaryladies.bdsmlr.com/",
+            //"https://fuckslut-lucy.bdsmlr.com/",
+            "https://deepestinsertions.bdsmlr.com/",
+            "https://drepregnantworshiper.bdsmlr.com/",
+            "https://lactationstation.bdsmlr.com/",
+          //  "https://bigcockinherass.bdsmlr.com/",
+          //  "https://rapeasspisspiggy.bdsmlr.com/",
+            //"https://hucowdairy.bdsmlr.com/",
+            "https://easeandelation.bdsmlr.com/",
+           // "https://hucowsandfuckpigs.bdsmlr.com/",
+            "https://baby-bitch.bdsmlr.com/",
+          //  "https://udders-teats.bdsmlr.com/",
+            "https://poly-incest-lovers.bdsmlr.com/",
+            "https://jacquirocksursocks.bdsmlr.com/",
+           // "https://vampcunt.bdsmlr.com/"
+        };
 
 
 

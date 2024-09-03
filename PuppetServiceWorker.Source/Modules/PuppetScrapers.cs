@@ -1,8 +1,4 @@
-
-
-
-
-using System.Diagnostics;
+using Microsoft.Extensions.Logging;
 
 using PuppeteerSharp;
 using PuppeteerSharp.Dom;
@@ -15,16 +11,15 @@ namespace PuppetServiceWorker.Modules;
 
 public class PuppetScrapers : PuppetPageBase, IDisposable, IAsyncDisposable
 {
-    private readonly ILogger<Worker> _logger;
 
-
-    public PuppetScrapers(ILogger<Worker> logger)
+    private ILogger _logger;
+    public PuppetScrapers()
     {
-_logger = logger;
+       
     }
 
 
-public IPage PuppetPage { get{return Page;} }
+    public IPage PuppetPage { get { return Page; } }
 
 
 
@@ -316,12 +311,12 @@ public IPage PuppetPage { get{return Page;} }
 
     public async Task ScrapeBdsmlr(string url, CancellationToken stoppingToken)
     {
-        Page.Dialog += async (sender, e) =>
+        Page.Dialog +=  (sender, e) =>
         {
 
-            await HandleDialogs(sender, e);
+          // await HandleDialogs(sender, e);
         };
-_logger.LogDebug("Dialog handler attached");
+        _logger.LogDebug("Dialog handler attached");
 
         if (!stoppingToken.IsCancellationRequested)
         {
@@ -329,33 +324,50 @@ _logger.LogDebug("Dialog handler attached");
 
 
             _logger.LogDebug("Starting Navigation");
-            await Page.GoToAsync(url);
-
-            _logger.LogDebug("Waiting for nav idle");
-            await Page.WaitForNetworkIdleAsync();
-
-            _logger.LogDebug("starting to search for video elements");
-            await SearchVPlayer(Page, stoppingToken);
+            _logger.LogDebug("Waiting for network idle");
+            try
+            {
+                
+              await  Page.GoToAsync(url);
+                await Task.Delay(5000);
+                await Page.EvaluateFunctionAsync("() => {window.scrollBy(0, 100)}");
+                _logger.LogDebug("starting to search for video elements");
+            }
+            catch (System.Exception)
+            {
+                
+            
+            }
+            await SearchVPlayer( stoppingToken);
 
         }
 
     }
 
-    private async Task SearchVPlayer(IPage page, CancellationToken stoppingToken)
+
+/// <summary>
+/// Method designed for scraping bdsmlr.com posts with scrolling.
+/// </summary>
+/// <param name="page"></param>
+/// <param name="stoppingToken"></param>
+/// <returns></returns>
+    private async Task SearchVPlayer( CancellationToken stoppingToken)
     {
-
-
-        while (!stoppingToken.IsCancellationRequested)
+        // Scroll down slightly to ensure that scrollbars are shown. Some instances
+        // the scrollbars are shown briefly before they disappear.
+        await Page.EvaluateFunctionAsync("() => {window.scrollBy(0, 100)}");
+        int pageCounter = 0;
+        while (!stoppingToken.IsCancellationRequested && pageCounter < 15)
         {
-
-            var elements = await page.QuerySelectorAllAsync<HtmlDivElement>("div.wrap-post.typevideo");
-
-            _logger.LogDebug("vid elements found count= {0}", elements.Length);
+            var elements = await Page.QuerySelectorAllAsync<HtmlDivElement>("div.wrap-post.typevideo");
 
             foreach (var vid in elements)
             {
 
+                _logger.LogDebug("vid elements found count= {0}", elements.Length);
+
                 var vids = await vid.QuerySelectorAsync<HtmlElement>("video.vjs-tech");
+                if (vids == null) continue;
                 var postid = await vids.GetAttributeAsync("value-id");
                 // Get Child element which is a "source" element
                 var source = await vids.GetFirstChildAsync();
@@ -364,19 +376,22 @@ _logger.LogDebug("Dialog handler attached");
                 {
 
                     var link = await source.GetNodeValueAsync();
-                    System.Console.WriteLine(link);
+                    Console.WriteLine(link);
                     TrackingDb.InsertRecord(postid, "video", link!);
                 }
 
             }
 
-            await page.EvaluateExpressionAsync("window.scrollTo(0,document.body.scrollHeight)");
-            await Task.Delay(2000);
+            
+            await Page.EvaluateExpressionAsync("window.scrollTo(0,document.body.scrollHeight)");
+           // await Page.WaitForNavigationAsync(new NavigationOptions { WaitUntil = new[] { WaitUntilNavigation.Load, WaitUntilNavigation.DOMContentLoaded } });
+            await Task.Delay(4000);
 
-
+            pageCounter++;
 
 
         }
+        await Task.Delay(3000);
     }
 
 

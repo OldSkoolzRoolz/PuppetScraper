@@ -17,8 +17,7 @@ public static class PuppetSettings
 {
     public static int DebuggerAttachedTestTimeout { get; internal set; } = 300_000;
     public static int DefaultPuppeteerTimeout { get; internal set; } = 30_000;
-    public static ILoggerFactory LoggerFactory { get; internal set; } = new LoggerFactory();
-
+   
 
     internal static LaunchOptions DefaultBrowserOptions()
     {
@@ -27,9 +26,9 @@ public static class PuppetSettings
             Headless = false,
             Timeout = 0,
             ExecutablePath = @"/Storage/Apps/Browser/chrome-linux64/chrome",
-            Args =  new[]{"--no-incognito", "--disable-features=PreloadMediaEngagementData, MediaEngagementBypassAutoplayPolicies"},
+            Args =  new[]{ "--no-experiments", "--minimal"},
             UserDataDir = "/Storage/Data/ChromeData",
-            DefaultViewport = new ViewPortOptions{ Width=1280, Height=8000 },
+            DefaultViewport = new ViewPortOptions{ Width=1280, Height=3000 },
             
         };
         return lo;

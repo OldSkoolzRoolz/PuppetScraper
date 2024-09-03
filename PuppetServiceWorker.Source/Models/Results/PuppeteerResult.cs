@@ -16,6 +16,6 @@ namespace PuppeteerSharp.Models.Results
 
         public bool Success { get; } = success;
 
-        public string Message { get; }
+        public string Message { get; } = "";
     }
 }
