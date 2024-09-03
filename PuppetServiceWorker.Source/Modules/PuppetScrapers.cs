@@ -9,7 +9,7 @@ namespace PuppetServiceWorker.Modules;
 
 
 
-public class PuppetScrapers : PuppetPageBase, IDisposable, IAsyncDisposable
+public class PuppetScrapers : PuppetPageBase, IDisposable, IAsyncDisposable, IPuppetScrapers
 {
 
     private ILogger _logger;

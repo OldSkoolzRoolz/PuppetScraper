@@ -4,9 +4,7 @@ namespace PuppetServiceWorker;
 
 public class PuppetBrowserBase : IDisposable, IAsyncDisposable
 {
-
-
-    protected IBrowser Browser { get; set; }
+    public IBrowser Browser { get; set; }
     protected LaunchOptions? DefaultOptions { get; set; } = PuppetSettings.DefaultBrowserOptions();
 
 
