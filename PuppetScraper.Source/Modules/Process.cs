@@ -3,7 +3,7 @@
 
 using System.Diagnostics;
 
-namespace PuppetServiceWorker.Modules;
+namespace PuppetScraper.Modules;
 
 
 public class ProcessManipulation

@@ -1,9 +1,9 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PuppetServiceWorker", "PuppetServiceWorker.csproj", "{1B9B02D5-F800-489B-9537-39A1953D8DEB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PuppetScraper", "PuppetScraper.csproj", "{1B9B02D5-F800-489B-9537-39A1953D8DEB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -3,9 +3,9 @@ using Microsoft.Extensions.Logging;
 using PuppeteerSharp;
 using PuppeteerSharp.Dom;
 
-using PuppetServiceWorker.Data;
+using PuppetScraper.Data;
 
-namespace PuppetServiceWorker.Modules;
+namespace PuppetScraper.Modules;
 
 
 

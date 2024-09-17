@@ -1,0 +1,27 @@
+{
+    "configurations": [
+        {
+            "name": "Run 'PuppetScraper.Sample'",
+            "type": "dotnet",
+            "projectPath": "$PROJECT_DIR$/PuppetScraper.Sample.csproj",
+            "targetFramework": "net8.0",
+            "args": [],
+            "environment": {},
+        },
+        {
+            "type": "command",
+            "name": "Config override (debug)",
+            "program": "dotnet",
+            "workingDir": "$PROJECT_DIR$/bin/Debug/net8.0",
+            "environment": {},
+            "args": [
+                "msbuild",
+                "/property:Configuration=Debug",
+                "$PROJECT_DIR$/PuppetScraper.Sample.sln"
+            ],
+            "allowParallelRun": false,
+        },
+    ]
+}
+
+// /Storage/dotnet/dotnet /Storage/dotnet/sdk/8.0.303/MSBuild.dll -maxcpucount /property:Configuration=Debug /t:PuppetScraper_Sample $PROJECT_DIR$/PuppetScraper.Sample.sln

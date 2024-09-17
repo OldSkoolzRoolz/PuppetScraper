@@ -1,4 +1,4 @@
-namespace PuppetServiceWorker.Models;
+namespace PuppetScraper.Models;
 
 public class DownloadCompleteArgs : EventArgs
 {

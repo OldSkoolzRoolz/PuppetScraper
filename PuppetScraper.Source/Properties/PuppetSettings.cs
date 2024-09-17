@@ -8,7 +8,7 @@
 
 using PuppeteerSharp;
 
-namespace PuppetServiceWorker;
+namespace PuppetScraper;
 
 
 

@@ -1,6 +1,6 @@
 using PuppeteerSharp;
 
-namespace PuppetServiceWorker;
+namespace PuppetScraper;
 
 public class PuppetBrowserBase : IDisposable, IAsyncDisposable
 {

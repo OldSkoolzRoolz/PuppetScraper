@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 
 
-namespace PuppetServiceWorker;
+namespace PuppetScraper;
 
 public class PuppetPageBase : PuppetBrowserContextBase
 {

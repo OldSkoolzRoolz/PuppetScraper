@@ -1,29 +1,43 @@
+using System.Collections.Concurrent;
 using System.Diagnostics;
 
+using PuppetScraper.Data;
+using PuppetScraper.Models;
+
+namespace PuppetScraper.Modules;
 
 
-using System.Collections.Concurrent;
 
-
-using PuppetServiceWorker.Data;
-using PuppetServiceWorker.Models;
-
-namespace PuppetServiceWorker.Modules;
-
-public class Downloader
+public interface IDownloader
 {
 
-    public readonly CancellationToken _token;
-    public readonly string _downloadPath;
-    public readonly int _concurrentTasks;
-    public readonly ConcurrentDictionary<string, string> _targetList = new ConcurrentDictionary<string, string>();
+    Task StartDownloadingAsync(CancellationToken stoppingToken);
+    Task DownloadFile(string id, string url, CancellationToken token);
 
-    readonly HttpClient _client = new HttpClient()
+}
+
+
+
+
+public class Downloader:IDownloader
+{
+
+
+    private readonly CancellationToken _token;
+    private readonly string _downloadPath;
+    private readonly int _concurrentTasks;
+    private readonly ConcurrentDictionary<string, string> _targetList = new();
+
+   private readonly HttpClient _client = new HttpClient()
     {
         Timeout = TimeSpan.FromSeconds(360),
         DefaultRequestHeaders = { { "User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.142.86 Safari/537.36" } }
     };
 
+
+   public CancellationToken Token => _token;
+public string DownloadPath => _downloadPath;
+public int ConcurrentTasks => _concurrentTasks;
 
     /// <summary>
     /// Event raised when a single download task is completed.
@@ -43,6 +57,7 @@ public class Downloader
     /// <summary>
     /// Initializes a new instance of the <see cref="Downloader"/> class.
     /// </summary>
+    /// <param name="concurrentTasks"></param>
     /// <param name="stoppingToken">
     /// The <see cref="CancellationToken"/> used to stop the download tasks gracefully.
     /// </param>
@@ -95,13 +110,11 @@ public class Downloader
 
 
 
-
-
-
     /// <summary>
     /// This method is called when a download task is completed. 
     /// It updates the seen status of the downloaded item in the database.
     /// </summary>
+    /// <param name="sender"></param>
     /// <param name="args">The <see cref="DownloadCompleteArgs"/> containing the information about the completed download.</param>
     public virtual void OnDownloadComplete(object? sender, DownloadCompleteArgs args)
     {
@@ -132,7 +145,7 @@ public class Downloader
 
 
 
-    public async Task StartDownloadsAsync(CancellationToken stoppingToken)
+    public async Task StartDownloadsAsync()
     {
         // Check if the number of concurrent tasks is valid
         if (_concurrentTasks <= 0)
@@ -147,7 +160,7 @@ public class Downloader
         for (int i = 0; i < _concurrentTasks; i++)
         {
             // Create a new task and add it to the linked list
-            var task = StartDownloadingAsync(stoppingToken);
+            var task = StartDownloadingAsync(Token);
             tasks.AddLast(task);
         }
 
@@ -174,7 +187,7 @@ public class Downloader
                 // If there are still tasks to be completed, create a new concurrent task and add it to the linked list
                 if (tasks.Count < _concurrentTasks)
                 {
-                    var newTask = StartDownloadingAsync(stoppingToken);
+                    var newTask = StartDownloadingAsync(Token);
                     tasks.AddLast(newTask);
                 }
             }

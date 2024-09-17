@@ -1,11 +1,11 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "UnitTests.csproj", "{EA436E8E-CC2F-45E6-9EA0-830F3384F39D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PuppetServiceWorker", "..\PuppetServiceWorker.Source\PuppetServiceWorker.csproj", "{706F7711-E536-4424-BE4A-721D8E3AFEB8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PuppetScraper", "..\PuppetScraper.Source\PuppetScraper.csproj", "{706F7711-E536-4424-BE4A-721D8E3AFEB8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

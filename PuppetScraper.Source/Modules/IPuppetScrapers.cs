@@ -2,7 +2,7 @@
 
 using PuppeteerSharp;
 
-namespace PuppetServiceWorker.Modules;
+namespace PuppetScraper.Modules;
 
 public interface IPuppetScrapers
 {

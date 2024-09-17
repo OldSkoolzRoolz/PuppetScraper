@@ -1,0 +1,25 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:user="clr-namespace:PuppetScraper.Sample.UserControls"
+        xmlns:vm="clr-namespace:PuppetScraper.Sample.ViewModels"
+        xmlns:userControls="clr-namespace:PuppetScraper.Sample.UserControls"
+        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="350"
+        Width="600" Height="450" Background="SteelBlue"
+        x:Class="PuppetScraper.Sample.Views.MainWindow"
+        x:CompileBindings="True"
+        x:DataType="vm:MainWindowViewModel"
+        Title="Puppet Scraper Sample App">
+
+    <Window.Styles>
+        <StyleInclude Source="/Styles/FormControls.axaml"/>
+    </Window.Styles>
+    <Grid ColumnDefinitions="*" RowDefinitions="Auto,Auto,Auto">
+
+        <userControls:MenuStrip Grid.Row="0"/>
+
+    <user:ProfileListControl Grid.Row="1"/>
+    <user:ProfileDetails Grid.Row="2"/>
+    </Grid>
+</Window>

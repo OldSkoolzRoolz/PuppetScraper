@@ -1,0 +1,24 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:PuppetScraper.Sample.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="viewModels:MainWindowViewModel"
+             x:Class="PuppetScraper.Sample.UserControls.MenuStrip">
+<UserControl.Styles>
+    <StyleInclude Source="/Styles/FormControls.axaml" />
+</UserControl.Styles>
+
+   <StackPanel Orientation="Horizontal" Spacing="1" HorizontalAlignment="Center" >
+
+       <Button Content="Create"  ToolTip.Tip="Create a new site scraping profile" Classes="menu" Margin="1" />
+
+
+       <Button Content="Edit" Classes="menu" />
+       <Button Content="Delete" Margin="1" />
+       <Button Content="Scrape" Command="{Binding BeginScrapingSiteCommand}" CommandParameter="{Binding TargetAddress}" Margin="1" />
+       <Button Content="Download" Name="DlButton" ToolTip.Tip="Download files from this profile if any." />
+
+   </StackPanel>
+</UserControl>

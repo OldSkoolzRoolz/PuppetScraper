@@ -1,0 +1,46 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:PuppetScraper.Sample.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="viewModels:MainWindowViewModel"
+             x:Class="PuppetScraper.Sample.UserControls.ProfileDetails" Background="SteelBlue">
+    <UserControl.Styles>
+        <StyleInclude Source="/Styles/FormControls.axaml"></StyleInclude>
+    </UserControl.Styles>
+
+    <Grid RowDefinitions="*,*,*,*,*,*,*,*,*,*,*" ColumnDefinitions="200,350">
+
+        <Label  Content="Profile Name" Target="ProfileName" Classes="frm" /><TextBox Grid.Row="0" Grid.Column="1" Classes="frm" Name="ProfileName" Width="200" />
+
+            <Label Grid.Row="1" Classes="frm" Grid.Column="0" Content="Profile Description" Target="ProfileDesc" /><TextBox Grid.Row="1" Grid.Column="1"  Name="ProfileDesc" Text="Enter Description" Width="200" Height="75" Classes="frm"  />
+
+            <Label Classes="frm" Grid.Row="2" Grid.Column="0"  Content="Target Site" Target="TargetSite" /><TextBox Grid.Row="2" Grid.Column="1" Name="TargetSite" Width="200" Classes="frm" Text="{Binding TargetAddress ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+
+
+
+            <Label Classes="frm" Grid.Row="3" Grid.Column="0" Content="Outer Selector" Target="OutSelector"  />
+        <TextBox Grid.Row="3" Grid.Column="1" Name="OutSelector" Text="{Binding OuterLoop}" Width="200" Classes="frm"  />
+        <ToolTip Grid.Row="3" Grid.Column="1" Placement="Right" Tip="This selector is a parent control or wrapper of the target items"></ToolTip>
+
+            <Label Classes="frm" Grid.Row="4" Grid.Column="0"  Content="Inner Selector" Target="InnerSelector" />
+        <TextBox Grid.Row="4" Grid.Column="1" Name="InnerSelector" Text="{Binding InnerLoop}" Width="200" Classes="frm" ToolTip.Tip="This is a unique selector for each item. Such as the div element containing the target element." />
+
+        <Label Grid.Row="5" Grid.Column="0" Classes="frm" Content="Next element selector" Target="nextSelector"/>
+        <TextBox Grid.Row="5" Grid.Column="1" Classes="frm" Name="NextSelector" Text="{Binding NextSelector}" />
+
+        <StackPanel Orientation="Horizontal" Grid.Row="8" Grid.Column="1">
+        <Label Classes="frm" Content="Pagination type used" />
+            <RadioButton GroupName="Pagination" Content="Prev/Next" Classes="frm" />
+            <RadioButton GroupName="Pagination" Content="Infinity Scrolling" Classes="frm"/>
+
+            <Label Classes="frm"  Content="Target Element Type"   />
+
+        <RadioButton  GroupName="TargetType" Content="Image" Classes="frm"  />
+            <RadioButton  Classes="frm"  GroupName="TargetType" Content="Video"/>
+        </StackPanel>
+        <Label Grid.Row="6" Classes="frm" Grid.Column="0" Content="Pages to scrape" Target="PageCount" /><TextBox Grid.Column="1" Grid.Row="6" Classes="frm" Name="PageCount" ToolTip.Tip="Page count is only use with infinity type scrolling controls." Text="{Binding PageCount, Mode=TwoWay}" Width="75" />
+
+    </Grid>
+</UserControl>
